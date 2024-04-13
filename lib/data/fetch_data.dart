@@ -46,10 +46,12 @@ Future<AirQuality?> fetchData() async {
 		//-----------------------------------//
 
 		var url = Uri.parse('https://api.waqi.info/feed/geo:${position.latitude};${position.longitude}/?token=$API_KEY');
+
 		var response = await http.get(url);
 
 		if(response.statusCode == 200) {
 			AirQuality airQuality = AirQuality.fromJson(jsonDecode(response.body));
+      //airQuality.aqi=205;
 			if(airQuality.aqi >= 0 && airQuality.aqi <= 50) {
 				airQuality.message = "Air quality is considered satisfactory, and air pollution poses little or no risk	";
 				airQuality.emojiRef = "1.png";
